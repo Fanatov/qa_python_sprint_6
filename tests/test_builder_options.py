@@ -1,39 +1,36 @@
-import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-import LOCATORS
+from LOCATORS import *
 
 
-def test_redirect_ingridients_buns(driver):
-    driver.get(LOCATORS.BASE_URL)
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, LOCATORS.INGRIDIENTS_SECTION)))
-    time.sleep(1)
-    driver.find_element(By.XPATH, LOCATORS.SAUCES_BUTTON).click()
-    time.sleep(1)
-    driver.find_element(By.XPATH, LOCATORS.BUNS_BUTTON).click()
-    assert driver.find_element(By.XPATH, LOCATORS.SELECTED_INGRIDIENT).text == "Булки"
-    time.sleep(1)
-    driver.quit()
+class TestBuilder:
+    def test_redirect_ingridients_buns(self,driver):
+        driver.get(Locators.BASE_URL)
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(
+            (By.XPATH, Locators.INGRIDIENTS_SECTION)))
+        driver.find_element(By.XPATH, Locators.SAUCES_BUTTON).click()
+        driver.find_element(By.XPATH, Locators.BUNS_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.SELECTED_INGRIDIENT)))
+        assert driver.find_element(By.XPATH, Locators.SELECTED_INGRIDIENT).text == StaticData.BUNS
 
 
-def test_redirect_ingridients_fillings(driver):
-    driver.get(LOCATORS.BASE_URL)
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, LOCATORS.INGRIDIENTS_SECTION)))
-    time.sleep(1)
-    driver.find_element(By.XPATH, LOCATORS.FILLINGS_BUTTON).click()
-    time.sleep(1)
-    assert driver.find_element(By.XPATH, LOCATORS.SELECTED_INGRIDIENT).text == "Начинки"
-    time.sleep(1)
-    driver.quit()
+    def test_redirect_ingridients_fillings(self,driver):
+        driver.get(Locators.BASE_URL)
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(
+            (By.XPATH, Locators.INGRIDIENTS_SECTION)))
+        driver.find_element(By.XPATH, Locators.FILLINGS_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.SELECTED_INGRIDIENT)))
+        assert driver.find_element(By.XPATH, Locators.SELECTED_INGRIDIENT).text == StaticData.FILLINGS
 
 
-def test_redirect_ingridients_sauces(driver):
-    driver.get(LOCATORS.BASE_URL)
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, LOCATORS.INGRIDIENTS_SECTION)))
-    time.sleep(1)
-    driver.find_element(By.XPATH, LOCATORS.SAUCES_BUTTON).click()
-    time.sleep(1)
-    assert driver.find_element(By.XPATH, LOCATORS.SELECTED_INGRIDIENT).text == "Соусы"
-    time.sleep(1)
-    driver.quit()
+    def test_redirect_ingridients_sauces(self,driver):
+        driver.get(Locators.BASE_URL)
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(
+            (By.XPATH, Locators.INGRIDIENTS_SECTION)))
+        driver.find_element(By.XPATH, Locators.SAUCES_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.SELECTED_INGRIDIENT)))
+        assert driver.find_element(By.XPATH, Locators.SELECTED_INGRIDIENT).text == StaticData.SAUCES

@@ -4,6 +4,7 @@ import pytest
 from selenium import webdriver
 
 
+
 @pytest.fixture
 def create_random_password():
     password = ''.join(random.choices(string.ascii_letters, k=8))
@@ -34,7 +35,7 @@ def create_incorrect_random_email():
     first_name = ''.join(random.choices(string.ascii_letters, k=8))
     last_name = ''.join(random.choices(string.ascii_letters, k=8))
     random_digits = ''.join([str(random.randint(0, 9)) for _ in range(3)])
-    incorrect_email = f'{first_name}{last_name}12{random_digits}@y'
+    incorrect_email = f'{first_name}{last_name}12{random_digits}@yandex'
     return incorrect_email
 
 
@@ -49,4 +50,5 @@ def create_incorrect_random_password():
 @pytest.fixture
 def driver():
     driver = webdriver.Chrome()
-    return driver
+    yield driver
+    driver.quit()

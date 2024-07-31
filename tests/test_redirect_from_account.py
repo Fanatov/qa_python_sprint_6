@@ -1,36 +1,36 @@
-import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-import LOCATORS
+from LOCATORS import *
 
 
-def test_redirect_builder_page_button(driver):
-    driver.get(LOCATORS.ACCOUNT_URL)
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, LOCATORS.PAGE_HEADER)))
-    time.sleep(1)
-    time.sleep(1)
-    driver.find_element(By.CSS_SELECTOR, LOCATORS.NAME_FIELD).send_keys(LOCATORS.LOGIN_NAME)
-    driver.find_element(By.CSS_SELECTOR, LOCATORS.PASSWORD_FIELD).send_keys(LOCATORS.LOGIN_PASSWORD)
-    driver.find_element(By.XPATH, LOCATORS.LOGIN_BUTTON).click()
-    time.sleep(1)
-    driver.find_element(By.XPATH, LOCATORS.ACCOUNT_PAGE_BUTTON).click()
-    driver.find_element(By.XPATH, LOCATORS.BUILDER_BUTTON).click()
-    assert driver.find_element(By.XPATH, LOCATORS.INGRIDIENTS_SECTION).is_displayed()
-    time.sleep(1)
-    driver.quit()
+class TestRedirect:
+    def test_redirect_builder_page_button(self, driver):
+        driver.get(Locators.ACCOUNT_URL)
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.PAGE_HEADER)))
+        driver.find_element(By.XPATH, Locators.NAME_FIELD).send_keys(StaticData.LOGIN_NAME)
+        driver.find_element(By.XPATH, Locators.PASSWORD_FIELD).send_keys(StaticData.LOGIN_PASSWORD)
+        driver.find_element(By.XPATH, Locators.LOGIN_BUTTON).click()
+        driver.find_element(By.XPATH, Locators.ACCOUNT_PAGE_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.BUILDER_BUTTON)))
+        driver.find_element(By.XPATH, Locators.BUILDER_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.INGRIDIENTS_SECTION)))
+        assert driver.find_element(By.XPATH, Locators.INGRIDIENTS_SECTION).is_displayed()
 
-
-def test_redirect_logo_page_click(driver):
-    driver.get(LOCATORS.ACCOUNT_URL)
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, LOCATORS.PAGE_HEADER)))
-    time.sleep(1)
-    driver.find_element(By.CSS_SELECTOR, LOCATORS.NAME_FIELD).send_keys(LOCATORS.LOGIN_NAME)
-    driver.find_element(By.CSS_SELECTOR, LOCATORS.PASSWORD_FIELD).send_keys(LOCATORS.LOGIN_PASSWORD)
-    driver.find_element(By.XPATH, LOCATORS.LOGIN_BUTTON).click()
-    time.sleep(1)
-    driver.find_element(By.XPATH, LOCATORS.ACCOUNT_PAGE_BUTTON).click()
-    driver.find_element(By.XPATH, LOCATORS.LOGO_MAIN_PAGE).click()
-    assert driver.find_element(By.XPATH, LOCATORS.INGRIDIENTS_SECTION).is_displayed()
-    time.sleep(1)
-    driver.quit()
+    def test_redirect_logo_page_click(self, driver):
+        driver.get(Locators.ACCOUNT_URL)
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.PAGE_HEADER)))
+        driver.find_element(By.XPATH, Locators.NAME_FIELD).send_keys(StaticData.LOGIN_NAME)
+        driver.find_element(By.XPATH, Locators.PASSWORD_FIELD).send_keys(StaticData.LOGIN_PASSWORD)
+        driver.find_element(By.XPATH, Locators.LOGIN_BUTTON).click()
+        driver.find_element(By.XPATH, Locators.ACCOUNT_PAGE_BUTTON).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.LOGO_MAIN_PAGE)))
+        driver.find_element(By.XPATH, Locators.LOGO_MAIN_PAGE).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, Locators.INGRIDIENTS_SECTION)))
+        assert driver.find_element(By.XPATH, Locators.INGRIDIENTS_SECTION).is_displayed()
